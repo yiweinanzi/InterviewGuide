@@ -46,3 +46,23 @@
 
 ### Notes
 - 从本任务开始，严格执行“单任务、单提交、可验证”流程。
+
+---
+
+## 2026-02-26 - Task T03: 数据解析脚本
+
+### What was done
+- 新增 `tests/fixtures/knowledge_sample.md` 与 `tests/fixtures/company_sample.md`。
+- 新增 `tests/data/parse_knowledge.test.ts`，先验证缺失解析器时失败。
+- 新增 `scripts/lib/types.ts`。
+- 新增 `scripts/lib/parse_knowledge.ts`（分类、题目、出现次数、公司、变体解析）。
+- 新增 `scripts/lib/parse_company.ts`（公司、题目、出现次数解析）。
+- 新增 `scripts/build-data.ts` 生成原始 JSON 产物（`src/data/*.raw.json`）。
+
+### Verification
+- RED: `npm run test -- tests/data/parse_knowledge.test.ts`，因缺失 `parse_knowledge` 失败。
+- GREEN: 同命令通过（1 test passed）。
+- 回归: `npm run test` 通过（3 test passed）。
+
+### Notes
+- 解析器先满足最小结构化抽取，后续在 T04 增加 AI 范围过滤与正式产物。

@@ -34,7 +34,7 @@
         "task schema 测试通过",
         "流程文件已写入仓库"
       ],
-      "commit": ""
+      "commit": "42e7c57"
     },
     {
       "id": "T03",
@@ -45,7 +45,7 @@
         "实现 parse_company",
         "补 fixture 与解析测试"
       ],
-      "status": "pending",
+      "status": "done",
       "acceptance": [
         "解析测试通过"
       ],
