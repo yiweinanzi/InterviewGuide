@@ -66,3 +66,31 @@
 
 ### Notes
 - 解析器先满足最小结构化抽取，后续在 T04 增加 AI 范围过滤与正式产物。
+
+---
+
+## 2026-02-26 - Task T04: AI 范围过滤与 JSON 产物生成
+
+### What was done
+- 新增 `tests/data/filter_ai_scope.test.ts`，先验证缺失过滤器时失败。
+- 新增 `scripts/lib/keywords.ts`（AI 核心分类与系统设计关键词）。
+- 新增 `scripts/lib/filter_ai_scope.ts`（白名单分类保留 + AI 系统设计关键词筛）。
+- 更新 `scripts/build-data.ts`，生成正式产物：
+  - `src/data/questions.json`
+  - `src/data/companies.json`
+  - `src/data/categories.json`
+  - `src/data/stats.json`
+  - `src/data/search-index.json`
+- 使用 `vite-node` 执行构建脚本，产出 12,960 条 AI 范围题目。
+
+### Verification
+- RED: `npm run test -- tests/data/filter_ai_scope.test.ts`，缺失模块失败。
+- GREEN: 同命令通过（1 test passed）。
+- 数据生成: `./node_modules/.bin/vite-node scripts/build-data.ts` 输出：
+  - `knowledge rows: 22019`
+  - `scoped rows: 12960`
+  - `company rows: 26456`
+- 回归: `npm run test` 通过（4 test passed）。
+
+### Notes
+- 脚本通过 `--knowledge` 和 `--company` 参数可切换输入源，默认读取 `../result/output`。

@@ -49,7 +49,7 @@
       "acceptance": [
         "解析测试通过"
       ],
-      "commit": ""
+      "commit": "439fc36"
     },
     {
       "id": "T04",
@@ -60,7 +60,7 @@
         "实现 AI 系统设计关键词过滤",
         "生成 questions/companies/categories/stats/search-index"
       ],
-      "status": "pending",
+      "status": "done",
       "acceptance": [
         "过滤测试通过",
         "src/data JSON 生成成功"
