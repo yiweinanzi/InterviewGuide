@@ -253,3 +253,28 @@
 
 ### Notes
 - 清洗后公司聚合从 74 项降为 28 项，已移除“等N家公司”噪声条目。
+
+---
+
+## 2026-02-26 - Task T12: 知识点详情英文 URL 路由修复
+
+### What was done
+- 新增 `tests/lib/category_slug.test.ts`，先约束知识点 slug 必须为英文 ASCII，且可反解到中文分类名。
+- 更新 `src/lib/path.ts`：
+  - 新增知识点中文名到英文 slug 映射（如 `项目与行为面试 -> project-behavior`）。
+  - 新增通用 ASCII slug fallback，避免出现中文/百分号路径。
+  - `fromCategorySlug` 优先通过映射反解，未知 slug 仍兼容 `decodeURIComponent`。
+- 验证静态产物中知识点详情链接已切换为英文路径（`/categories/project-behavior/` 等）。
+
+### Verification
+- RED: `npm run test -- tests/lib/category_slug.test.ts` 失败（3 tests failed，旧实现返回 `%E...` 中文编码路径）。
+- GREEN: 同命令通过（1 file, 3 tests passed）。
+- 回归: `npm run test` 通过（17 files, 32 tests passed）。
+- 构建: `npm run build` 通过（13003 pages）。
+- 链接检查: `sed -n '1,220p' dist/categories/index.html | grep -o 'href=\"[^\"]*\"'` 输出包含：
+  - `/categories/project-behavior/`
+  - `/categories/nlp-llm/`
+  - `/categories/ml-fundamentals/`
+
+### Notes
+- 该修复将知识点详情路由改为英文 ASCII slug，规避中文编码 URL 在部分静态托管环境中的 404 风险。

@@ -176,6 +176,22 @@
         "公司详情 URL 为英文 slug（如 /companies/bytedance/）",
         "npm run test 与 npm run build 通过"
       ],
+      "commit": "aee9f3b"
+    },
+    {
+      "id": "T12",
+      "title": "知识点详情英文 URL 路由修复",
+      "description": "将知识点详情路由切换为英文 ASCII slug，修复中文路径在部分环境 404",
+      "steps": [
+        "为知识点补齐中文名到英文 slug 映射",
+        "保留 fallback，确保 slug 始终为 ASCII",
+        "补充 slug 映射测试并回归构建"
+      ],
+      "status": "done",
+      "acceptance": [
+        "知识点详情 URL 为英文 slug（如 /categories/project-behavior/）",
+        "npm run test 与 npm run build 通过"
+      ],
       "commit": ""
     }
   ]

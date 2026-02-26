@@ -31,12 +31,39 @@ const COMPANY_SLUG_MAP: Record<string, string> = {
   'B 站': 'bilibili-b',
 };
 
+const CATEGORY_SLUG_MAP: Record<string, string> = {
+  项目与行为面试: 'project-behavior',
+  'nlp与大模型': 'nlp-llm',
+  编程与算法: 'coding-algorithms',
+  机器学习基础: 'ml-fundamentals',
+  推荐系统: 'recommender-systems',
+  深度学习: 'deep-learning',
+  机器学习系统: 'ml-systems',
+  计算机视觉: 'computer-vision',
+  'ai系统设计': 'ai-system-design',
+};
+
 const COMPANY_NAME_BY_SLUG = new Map<string, string>(
   Object.entries(COMPANY_SLUG_MAP).map(([name, slug]) => [slug, name]),
 );
 
+const CATEGORY_NAME_BY_SLUG = new Map<string, string>(
+  Object.entries(CATEGORY_SLUG_MAP).map(([name, slug]) => [slug, name]),
+);
+
 function normalizeCompanyRouteName(name: string): string {
   return name.replace(TRAILING_COMPANY_COUNT_RE, '').trim();
+}
+
+function toAsciiSlug(name: string, prefix: string): string {
+  const ascii = name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  if (ascii) return ascii;
+
+  const hex = Buffer.from(name, 'utf8').toString('hex').slice(0, 16);
+  return `${prefix}-${hex}`;
 }
 
 function splitSuffix(path: string): { pathname: string; suffix: string } {
@@ -72,15 +99,7 @@ export function toCompanySlug(name: string): string {
   const normalized = normalizeCompanyRouteName(name);
   const known = COMPANY_SLUG_MAP[normalized];
   if (known) return known;
-
-  const ascii = normalized
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-  if (ascii) return ascii;
-
-  const hex = Buffer.from(normalized, 'utf8').toString('hex').slice(0, 16);
-  return `company-${hex}`;
+  return toAsciiSlug(normalized, 'company');
 }
 
 export function fromCompanySlug(slug: string): string {
@@ -88,11 +107,14 @@ export function fromCompanySlug(slug: string): string {
 }
 
 export function toCategorySlug(key: string): string {
-  return encodeURIComponent(key);
+  const normalized = key.trim();
+  const known = CATEGORY_SLUG_MAP[normalized];
+  if (known) return known;
+  return toAsciiSlug(normalized, 'category');
 }
 
 export function fromCategorySlug(slug: string): string {
-  return decodeURIComponent(slug);
+  return CATEGORY_NAME_BY_SLUG.get(slug) ?? decodeURIComponent(slug);
 }
 
 export function toQuestionSlug(id: string): string {
