@@ -3,10 +3,16 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 
-const repoName = process.env.GITHUB_REPO ?? 'InterviewGuide';
-const githubUsername = process.env.GITHUB_USERNAME ?? 'yiweinanzi';
+const githubRepository = process.env.GITHUB_REPOSITORY ?? '';
+const [repositoryOwner = '', repositoryName = ''] = githubRepository.split('/');
+
+const rawRepoName = process.env.GITHUB_REPO ?? repositoryName;
+const rawGithubUsername = process.env.GITHUB_USERNAME ?? repositoryOwner;
+const repoName = rawRepoName || 'InterviewGuide';
+const githubUsername = rawGithubUsername || 'yiweinanzi';
 const siteUrl = process.env.SITE_URL ?? `https://${githubUsername}.github.io`;
-const basePath = process.env.BASE_PATH ?? `/${repoName}`;
+const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
+const basePath = process.env.BASE_PATH ?? (isGitHubActions ? `/${repoName}` : '/');
 
 export default defineConfig({
   site: siteUrl,

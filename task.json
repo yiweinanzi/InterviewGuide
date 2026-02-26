@@ -138,7 +138,7 @@
         "更新 astro base/site",
         "补 README 部署说明"
       ],
-      "status": "pending",
+      "status": "done",
       "acceptance": [
         "npm run build 通过"
       ],

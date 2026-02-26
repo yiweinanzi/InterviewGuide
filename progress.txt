@@ -179,3 +179,22 @@
 
 ### Notes
 - 当前门禁为弱门禁，口令默认值在前端明文，仅用于防误操作，不用于安全隔离。
+
+---
+
+## 2026-02-26 - Task T09: 独立部署流程
+
+### What was done
+- 新增 `tests/deploy/pages_deploy.test.ts`，先约束 deploy workflow、Astro Pages 配置与 README 部署说明。
+- 新增 `.github/workflows/deploy.yml`，配置 GitHub Pages 构建与发布流水线（build + deploy jobs）。
+- 更新 `astro.config.mjs`，支持按 `GITHUB_ACTIONS` 与 `GITHUB_REPOSITORY` 自动推导 `site/base`。
+- 新增 `README.md`，补充本地运行、测试构建与 GitHub Pages 部署说明。
+
+### Verification
+- RED: `npm run test -- tests/deploy/pages_deploy.test.ts` 失败（缺失 `deploy.yml`、`README.md`，配置不含 `GITHUB_ACTIONS`）。
+- GREEN: 实现后同命令通过（1 file, 3 tests passed）。
+- 回归: `npm run test` 通过（11 files, 18 tests passed）。
+- 构建: `npm run build` 通过，静态构建完成（总计 13049 pages）。
+
+### Notes
+- 本地默认 `base=/`，GitHub Actions 构建默认 `base=/{repo}`，可通过 `BASE_PATH` 与 `SITE_URL` 覆盖。
