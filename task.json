@@ -80,7 +80,7 @@
       "acceptance": [
         "公司路由可访问"
       ],
-      "commit": ""
+      "commit": "9fbbeb5"
     },
     {
       "id": "T06",
@@ -91,7 +91,7 @@
         "新增 categories 路由",
         "复用筛选组件"
       ],
-      "status": "pending",
+      "status": "done",
       "acceptance": [
         "路由可访问",
         "筛选有效"

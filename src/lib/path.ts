@@ -10,3 +10,11 @@ export function toCompanySlug(name: string): string {
 export function fromCompanySlug(slug: string): string {
   return decodeURIComponent(slug);
 }
+
+export function toCategorySlug(key: string): string {
+  return encodeURIComponent(key);
+}
+
+export function fromCategorySlug(slug: string): string {
+  return decodeURIComponent(slug);
+}

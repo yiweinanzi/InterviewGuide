@@ -116,3 +116,24 @@
 
 ### Notes
 - 当前公司维度里有少量“等N家公司”噪声实体，后续可在数据清洗阶段去除。
+
+---
+
+## 2026-02-26 - Task T06: 高频与知识点链路
+
+### What was done
+- 新增 `tests/routes/study_routes.test.ts`，先验证缺失路由失败。
+- 新增 `src/pages/hot/index.astro`（高频优先页面，按频次展示）。
+- 新增 `src/pages/categories/index.astro`（知识点目录页）。
+- 新增 `src/pages/categories/[category].astro`（分类详情页）。
+- 新增 `src/components/filters/FilterBar.ts`（通用题目过滤函数）。
+- 更新 `src/lib/path.ts`，增加分类 slug 工具。
+
+### Verification
+- RED: `npm run test -- tests/routes/study_routes.test.ts` 失败（路由不存在）。
+- GREEN: 同命令通过（1 test passed）。
+- 回归: `npm run test` 通过（6 test passed）。
+- 构建: `npm run build` 通过，`/hot` 与 `/categories/*` 静态路由生成成功。
+
+### Notes
+- 高频页目前默认展示前 1200 条高频题，可后续增加分页/虚拟列表。
