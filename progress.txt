@@ -198,3 +198,29 @@
 
 ### Notes
 - 本地默认 `base=/`，GitHub Actions 构建默认 `base=/{repo}`，可通过 `BASE_PATH` 与 `SITE_URL` 覆盖。
+
+---
+
+## 2026-02-26 - Task T10: 子路径路由修复与刷题筛选增强
+
+### What was done
+- 新增 `tests/lib/path_base.test.ts`，约束子路径拼接时目录路由必须带尾斜杠、资源路径不追加斜杠。
+- 新增 `tests/filters/question_filters.test.ts`，约束题目筛选支持 `company + categoryKey` 联合过滤。
+- 新增 `tests/routes/filter_ui_routes.test.ts`，约束高频页与公司页筛选控件存在。
+- 更新 `src/lib/path.ts`，新增 `withBaseFrom` 并统一目录路由输出为尾斜杠 URL（如 `/companies/xxx/`）。
+- 更新 `src/components/filters/FilterBar.ts`，新增 `categoryKey` 筛选条件。
+- 更新 `src/pages/hot/index.astro`，新增关键词/公司/知识点三维筛选与空结果提示。
+- 更新 `src/pages/companies/[company].astro`，新增公司详情页知识点筛选并与关键词搜索联合生效。
+
+### Verification
+- RED: `npm run test -- tests/lib/path_base.test.ts tests/filters/question_filters.test.ts tests/routes/filter_ui_routes.test.ts` 失败（`withBaseFrom` 缺失、筛选逻辑缺失、筛选控件缺失）。
+- GREEN: 同命令通过（3 files, 6 tests passed）。
+- 回归: `npm run test` 通过（14 files, 24 tests passed）。
+- 构建: `npm run build` 通过（13049 pages）。
+- 链接检查: `sed -n '1,80p' dist/companies/index.html | grep -o 'href=\"[^\"]*\"' | sed -n '1,20p'` 输出包含：
+  - `/companies/`
+  - `/categories/`
+  - `/companies/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8/`
+
+### Notes
+- 该修复直接针对 GitHub Pages 子路径目录路由场景，避免无尾斜杠 URL 在详情页触发 404。

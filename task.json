@@ -146,15 +146,18 @@
     },
     {
       "id": "T10",
-      "title": "AgentGuide 子路径集成准备",
-      "description": "准备 /interview 子路径接入清单",
+      "title": "子路径路由修复与刷题筛选增强",
+      "description": "修复 GitHub Pages 子路径详情页 404，并增强高频/公司页筛选能力",
       "steps": [
-        "新增集成 checklist",
-        "新增 dist 导出脚本"
+        "修复 withBase 的目录路由尾斜杠策略，避免公司/知识点详情 404",
+        "高频页新增关键词 + 公司 + 知识点联合筛选",
+        "公司详情页新增关键词 + 知识点联合筛选"
       ],
-      "status": "pending",
+      "status": "done",
       "acceptance": [
-        "导出脚本可执行"
+        "公司定向与知识点详情链接在静态产物中为目录尾斜杠 URL",
+        "高频页可按公司和知识点筛选",
+        "npm run test 与 npm run build 通过"
       ],
       "commit": ""
     }

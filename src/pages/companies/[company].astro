@@ -54,6 +54,9 @@ const { company, companyQuestions } = Astro.props as {
 };
 
 const decodedName = fromCompanySlug(Astro.params.company ?? company.name);
+const categoryOptions = Array.from(
+  new Map(companyQuestions.map((item) => [item.categoryKey, item.categoryName])).entries(),
+).map(([key, name]) => ({ key, name }));
 ---
 
 <Layout title={`${company.name} | InterviewGuide`} description={`${company.name} AI 面经题库`}>
@@ -66,18 +69,27 @@ const decodedName = fromCompanySlug(Astro.params.company ?? company.name);
         <p class="text-slate-600 mt-2">题目 {company.questionCount} · 高频 {company.highFrequencyCount}</p>
       </div>
 
-      <div class="mb-6">
+      <div class="mb-6 grid gap-3 md:grid-cols-2">
         <input
           id="question-search"
           type="search"
           placeholder="搜索题目关键词"
-          class="w-full md:w-96 rounded-xl border border-slate-900/10 bg-secondary px-4 py-3 text-sm"
+          class="w-full rounded-xl border border-slate-900/10 bg-secondary px-4 py-3 text-sm"
         />
+        <select
+          id="company-category-filter"
+          class="w-full rounded-xl border border-slate-900/10 bg-secondary px-4 py-3 text-sm"
+        >
+          <option value="">全部知识点</option>
+          {categoryOptions.map((option) => (
+            <option value={option.key}>{option.name}</option>
+          ))}
+        </select>
       </div>
 
       <div id="question-list" class="grid gap-3">
         {companyQuestions.map((question) => (
-          <div class="question-item" data-title={question.title.toLowerCase()}>
+          <div class="question-item" data-title={question.title.toLowerCase()} data-category={question.categoryKey}>
             <QuestionCard
               id={question.id}
               title={question.title}
@@ -94,17 +106,26 @@ const decodedName = fromCompanySlug(Astro.params.company ?? company.name);
   <script is:inline>
     (() => {
       const input = document.getElementById('question-search');
+      const categoryFilter = document.getElementById('company-category-filter');
       const items = document.querySelectorAll('.question-item');
       if (!(input instanceof HTMLInputElement)) return;
+      if (!(categoryFilter instanceof HTMLSelectElement)) return;
 
-      input.addEventListener('input', () => {
+      const applyFilters = () => {
         const keyword = input.value.trim().toLowerCase();
+        const category = categoryFilter.value;
         for (const item of items) {
           if (!(item instanceof HTMLElement)) continue;
           const title = item.dataset.title || '';
-          item.style.display = !keyword || title.includes(keyword) ? '' : 'none';
+          const itemCategory = item.dataset.category || '';
+          const keywordMatched = !keyword || title.includes(keyword);
+          const categoryMatched = !category || category === itemCategory;
+          item.style.display = keywordMatched && categoryMatched ? '' : 'none';
         }
-      });
+      };
+
+      input.addEventListener('input', applyFilters);
+      categoryFilter.addEventListener('change', applyFilters);
     })();
   </script>
 </Layout>
