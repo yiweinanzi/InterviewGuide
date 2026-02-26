@@ -159,3 +159,23 @@
 
 ### Notes
 - 题目详情页使用浏览器本地存储维护收藏/完成状态，进度页实时读取同一存储键进行汇总展示。
+
+---
+
+## 2026-02-26 - Task T08: 管理员更新入口
+
+### What was done
+- 新增 `tests/admin/payload.test.ts`，先约束结构化 payload 的归一化、默认值与 query 序列化。
+- 新增 `tests/routes/admin_routes.test.ts`，先约束 `admin` 页面与 issue 模板文件存在。
+- 新增 `src/lib/admin_payload.ts`，实现管理员提交 payload 构建与 Issue query 生成。
+- 新增 `src/pages/admin/index.astro`，实现弱门禁（本地口令）+ 管理表单 + payload 预览 + GitHub Issue 跳转。
+- 新增 `.github/ISSUE_TEMPLATE/admin-update.yml`，提供管理员更新 issue 模板。
+
+### Verification
+- RED: `npm run test -- tests/admin/payload.test.ts tests/routes/admin_routes.test.ts` 失败（缺失 `src/lib/admin_payload.ts` 与 `admin` 页面/模板）。
+- GREEN: 实现后同命令通过（2 files, 4 tests passed）。
+- 回归: `npm run test` 通过（10 files, 15 tests passed）。
+- 构建: `npm run build` 通过，新增 `/admin` 静态路由（总计 13049 pages）。
+
+### Notes
+- 当前门禁为弱门禁，口令默认值在前端明文，仅用于防误操作，不用于安全隔离。
