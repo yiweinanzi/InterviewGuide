@@ -1,0 +1,48 @@
+# InterviewGuide Progress
+
+## 2026-02-26 - Bootstrap and Planning
+
+### What was done
+- 初始化 `InterviewGuide` 本地仓库并切换到 `main`。
+- 提交设计文档：`plans/2026-02-26-interviewguide-v1-design.md`。
+- 提交实现计划：`plans/2026-02-26-interviewguide-v1-implementation-plan.md`。
+
+### Verification
+- `git log --oneline` 显示设计与计划提交存在。
+
+### Notes
+- 后续按任务小步提交，保证每个任务均有可追溯提交记录。
+
+---
+
+## 2026-02-26 - Task T01: 建立测试与脚本基础设施
+
+### What was done
+- 在 `package.json` 增加 `test` / `test:watch` 脚本。
+- 新增 `vitest.config.ts`。
+- 新增 `tests/smoke/basic.test.ts` 和 `tests/fixtures/.gitkeep`。
+- 生成并提交 `package-lock.json`。
+
+### Verification
+- `npm run test` 通过（1 test passed）。
+- 提交: `427e7d4 chore: add test runner baseline`。
+
+### Notes
+- 测试基线可作为后续 TDD 任务入口。
+
+---
+
+## 2026-02-26 - Task T02: 建立持久化流程文件
+
+### What was done
+- 新增 `tests/workflow/task_schema.test.ts`（先失败后修复）。
+- 新增 `AGENT.MD`。
+- 新增 `task.json`，记录当前任务状态。
+- 新增 `progress.txt` 持续日志。
+
+### Verification
+- RED: `npm run test -- tests/workflow/task_schema.test.ts` 因缺失 `task.json` 失败。
+- GREEN: 创建流程文件后再次执行同命令应通过。
+
+### Notes
+- 从本任务开始，严格执行“单任务、单提交、可验证”流程。

@@ -1,0 +1,162 @@
+{
+  "project": "InterviewGuide",
+  "description": "AI interview learning site with persistent workflow tracking",
+  "updated_at": "2026-02-26",
+  "tasks": [
+    {
+      "id": "T01",
+      "title": "建立测试与脚本基础设施",
+      "description": "引入 Vitest 并建立 smoke 测试基线",
+      "steps": [
+        "新增 test/test:watch scripts",
+        "新增 vitest.config.ts",
+        "新增 smoke test 并验证通过"
+      ],
+      "status": "done",
+      "acceptance": [
+        "npm run test 可以运行",
+        "smoke 测试通过"
+      ],
+      "commit": "427e7d4"
+    },
+    {
+      "id": "T02",
+      "title": "建立持久化流程文件",
+      "description": "新增 AGENT.MD/task.json/progress.txt 与 schema 测试",
+      "steps": [
+        "新增 workflow schema 测试",
+        "新增 AGENT.MD",
+        "新增 task.json",
+        "新增 progress.txt"
+      ],
+      "status": "done",
+      "acceptance": [
+        "task schema 测试通过",
+        "流程文件已写入仓库"
+      ],
+      "commit": ""
+    },
+    {
+      "id": "T03",
+      "title": "数据解析脚本",
+      "description": "从知识点与公司 markdown 解析结构化题目数据",
+      "steps": [
+        "实现 parse_knowledge",
+        "实现 parse_company",
+        "补 fixture 与解析测试"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "解析测试通过"
+      ],
+      "commit": ""
+    },
+    {
+      "id": "T04",
+      "title": "AI 范围过滤与数据产物生成",
+      "description": "过滤 AI 核心范围并生成 src/data JSON",
+      "steps": [
+        "实现白名单分类过滤",
+        "实现 AI 系统设计关键词过滤",
+        "生成 questions/companies/categories/stats/search-index"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "过滤测试通过",
+        "src/data JSON 生成成功"
+      ],
+      "commit": ""
+    },
+    {
+      "id": "T05",
+      "title": "公司定向主链路",
+      "description": "默认入口公司定向，支持公司列表与公司题目页",
+      "steps": [
+        "新增 companies 路由",
+        "首页默认 CTA 指向公司定向",
+        "公司详情支持搜索和排序"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "公司路由可访问"
+      ],
+      "commit": ""
+    },
+    {
+      "id": "T06",
+      "title": "高频与知识点链路",
+      "description": "新增 hot/categories 学习入口",
+      "steps": [
+        "新增 hot 路由",
+        "新增 categories 路由",
+        "复用筛选组件"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "路由可访问",
+        "筛选有效"
+      ],
+      "commit": ""
+    },
+    {
+      "id": "T07",
+      "title": "题目详情与进度看板",
+      "description": "实现收藏/完成和进度统计",
+      "steps": [
+        "新增 question detail",
+        "新增 progress 页面",
+        "实现 localStorage 封装"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "进度存储测试通过"
+      ],
+      "commit": ""
+    },
+    {
+      "id": "T08",
+      "title": "管理员更新入口",
+      "description": "实现弱门禁管理页与结构化提交 payload",
+      "steps": [
+        "新增 admin 页面",
+        "新增门禁和提交表单",
+        "新增 issue 模板"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "payload 测试通过",
+        "admin 表单可用"
+      ],
+      "commit": ""
+    },
+    {
+      "id": "T09",
+      "title": "独立部署流程",
+      "description": "配置 GitHub Pages 独立部署",
+      "steps": [
+        "新增 deploy workflow",
+        "更新 astro base/site",
+        "补 README 部署说明"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "npm run build 通过"
+      ],
+      "commit": ""
+    },
+    {
+      "id": "T10",
+      "title": "AgentGuide 子路径集成准备",
+      "description": "准备 /interview 子路径接入清单",
+      "steps": [
+        "新增集成 checklist",
+        "新增 dist 导出脚本"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "导出脚本可执行"
+      ],
+      "commit": ""
+    }
+  ]
+}
