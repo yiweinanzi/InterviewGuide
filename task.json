@@ -107,7 +107,7 @@
         "新增 progress 页面",
         "实现 localStorage 封装"
       ],
-      "status": "pending",
+      "status": "done",
       "acceptance": [
         "进度存储测试通过"
       ],

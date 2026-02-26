@@ -18,3 +18,11 @@ export function toCategorySlug(key: string): string {
 export function fromCategorySlug(slug: string): string {
   return decodeURIComponent(slug);
 }
+
+export function toQuestionSlug(id: string): string {
+  return encodeURIComponent(id);
+}
+
+export function fromQuestionSlug(slug: string): string {
+  return decodeURIComponent(slug);
+}

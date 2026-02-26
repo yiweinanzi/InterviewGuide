@@ -137,3 +137,25 @@
 
 ### Notes
 - 高频页目前默认展示前 1200 条高频题，可后续增加分页/虚拟列表。
+
+---
+
+## 2026-02-26 - Task T07: 题目详情与进度看板
+
+### What was done
+- 新增 `tests/progress/storage.test.ts`，先约束 localStorage 封装行为（默认值、toggle、异常 JSON 容错、去重清洗）。
+- 新增 `tests/routes/detail_progress_routes.test.ts`，先约束题目详情路由与进度路由文件存在。
+- 新增 `src/lib/progress.ts`，提供进度状态读取/保存、收藏切换、完成切换、统计汇总。
+- 新增 `src/pages/questions/[id].astro`，实现题目详情页与“收藏/完成”交互。
+- 新增 `src/pages/progress/index.astro`，实现进度看板（已完成/已收藏/完成率与已跟进题目列表）。
+- 更新 `src/components/questions/QuestionCard.astro`，添加题目详情入口。
+- 更新 `src/lib/path.ts`，补充题目 slug 编解码工具。
+
+### Verification
+- RED: `npm run test -- tests/progress/storage.test.ts tests/routes/detail_progress_routes.test.ts` 失败（缺失 `src/lib/progress.ts` 与新路由文件）。
+- GREEN: 实现后同命令通过（2 files, 5 tests passed）。
+- 回归: `npm run test` 通过（8 files, 11 tests passed）。
+- 构建: `npm run build` 通过，新增 `/progress` 和 `/questions/*` 静态路由（总计 13048 pages）。
+
+### Notes
+- 题目详情页使用浏览器本地存储维护收藏/完成状态，进度页实时读取同一存储键进行汇总展示。
