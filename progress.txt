@@ -94,3 +94,25 @@
 
 ### Notes
 - 脚本通过 `--knowledge` 和 `--company` 参数可切换输入源，默认读取 `../result/output`。
+
+---
+
+## 2026-02-26 - Task T05: 公司定向主链路
+
+### What was done
+- 新增 `tests/routes/companies_routes.test.ts`，先验证缺失路由失败。
+- 新增 `src/pages/companies/index.astro`（公司列表页）。
+- 新增 `src/pages/companies/[company].astro`（公司题目详情页，按频次排序并支持前端关键词搜索）。
+- 新增 `src/components/questions/QuestionCard.astro`。
+- 新增 `src/components/filters/SearchBox.ts` 和 `src/lib/path.ts`。
+- 重写 `src/pages/index.astro`，默认入口切换到公司定向。
+- 更新 `src/layouts/Layout.astro` 导航，突出公司定向入口。
+
+### Verification
+- RED: `npm run test -- tests/routes/companies_routes.test.ts` 失败（路由文件不存在）。
+- GREEN: 同命令通过（1 test passed）。
+- 回归: `npm run test` 通过（5 test passed）。
+- 构建: `npm run build` 通过，生成 `companies` 相关静态路由。
+
+### Notes
+- 当前公司维度里有少量“等N家公司”噪声实体，后续可在数据清洗阶段去除。

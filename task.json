@@ -65,7 +65,7 @@
         "过滤测试通过",
         "src/data JSON 生成成功"
       ],
-      "commit": ""
+      "commit": "45ecd05"
     },
     {
       "id": "T05",
@@ -76,7 +76,7 @@
         "首页默认 CTA 指向公司定向",
         "公司详情支持搜索和排序"
       ],
-      "status": "pending",
+      "status": "done",
       "acceptance": [
         "公司路由可访问"
       ],

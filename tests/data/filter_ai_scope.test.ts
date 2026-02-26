@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { filterAiScope } from '../../scripts/lib/filter_ai_scope';
+import type { ParsedQuestionRow } from '../../scripts/lib/types';
 
-const inputRows = [
+const inputRows: ParsedQuestionRow[] = [
   {
     id: 'q1',
     question: 'Transformer 结构',
@@ -32,7 +33,7 @@ const inputRows = [
     variants: ['LLM 检索增强架构'],
     source: 'knowledge',
   },
-] as const;
+];
 
 const ALLOWED = new Set([
   'nlp与大模型',
