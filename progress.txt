@@ -224,3 +224,32 @@
 
 ### Notes
 - 该修复直接针对 GitHub Pages 子路径目录路由场景，避免无尾斜杠 URL 在详情页触发 404。
+
+---
+
+## 2026-02-26 - Task T11: 公司数据清洗与英文 URL 路由
+
+### What was done
+- 新增 `tests/data/company_normalization.test.ts`，先约束“等N家公司”归并与去重行为。
+- 新增 `tests/lib/company_slug.test.ts`，先约束公司 URL slug 使用英文并兼容“等N家公司”输入。
+- 新增 `scripts/lib/company_normalizer.ts`，实现公司名标准化与列表去重。
+- 更新 `scripts/lib/parse_knowledge.ts`，对题目公司列表应用标准化与去重。
+- 更新 `scripts/lib/parse_company.ts`，对公司标题应用标准化。
+- 更新 `src/lib/path.ts`，新增公司英文 slug 映射与后缀归并逻辑，生成 ASCII 路由。
+- 重新生成数据产物：`src/data/questions.json`、`src/data/companies.json`、`src/data/search-index.json`、`src/data/stats.json`。
+
+### Verification
+- RED: `npm run test -- tests/data/company_normalization.test.ts tests/lib/company_slug.test.ts` 失败（缺少 `company_normalizer`、slug 仍为中文编码）。
+- GREEN: 同命令通过（2 files, 5 tests passed）。
+- 数据构建: `./node_modules/.bin/vite-node scripts/build-data.ts` 输出：
+  - `knowledge rows: 22019`
+  - `scoped rows: 12960`
+  - `company rows: 26456`
+- 回归: `npm run test` 通过（16 files, 29 tests passed）。
+- 构建: `npm run build` 通过，静态路由中公司详情为英文 slug，例如：
+  - `/companies/bytedance/`
+  - `/companies/meituan/`
+  - `/companies/alibaba/`
+
+### Notes
+- 清洗后公司聚合从 74 项降为 28 项，已移除“等N家公司”噪声条目。

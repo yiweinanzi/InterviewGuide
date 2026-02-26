@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 
+import { normalizeCompanyName } from './company_normalizer';
 import type { ParsedCompanyRow } from './types';
 
 const COMPANY_RE = /^##\s+(.+)$/;
@@ -17,7 +18,7 @@ export async function parseCompany(filePath: string): Promise<ParsedCompanyRow[]
   for (const line of lines) {
     const companyMatch = line.match(COMPANY_RE);
     if (companyMatch) {
-      company = companyMatch[1].trim();
+      company = normalizeCompanyName(companyMatch[1].trim());
       continue;
     }
 

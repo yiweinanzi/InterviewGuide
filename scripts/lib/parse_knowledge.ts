@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 
+import { normalizeCompanyList } from './company_normalizer';
 import type { ParsedQuestionRow } from './types';
 
 interface MutableQuestion {
@@ -69,10 +70,12 @@ export async function parseKnowledge(filePath: string): Promise<ParsedQuestionRo
 
     const companiesMatch = line.match(COMPANIES_RE);
     if (companiesMatch) {
-      current.companies = companiesMatch[1]
-        .split(/[，,]/)
-        .map((item) => item.trim())
-        .filter(Boolean);
+      current.companies = normalizeCompanyList(
+        companiesMatch[1]
+          .split(/[，,]/)
+          .map((item) => item.trim())
+          .filter(Boolean),
+      );
       continue;
     }
 

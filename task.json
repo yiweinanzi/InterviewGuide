@@ -159,6 +159,23 @@
         "高频页可按公司和知识点筛选",
         "npm run test 与 npm run build 通过"
       ],
+      "commit": "95d8a46"
+    },
+    {
+      "id": "T11",
+      "title": "公司数据清洗与英文 URL 路由",
+      "description": "归并“等N家公司”噪声公司，并将公司详情路由改为英文 slug",
+      "steps": [
+        "实现公司名标准化（去除“等N家公司”后缀）并接入解析流程",
+        "重建 src/data 产物，确认公司聚合去噪",
+        "实现公司中文名到英文 slug 的映射，路由不再出现中文"
+      ],
+      "status": "done",
+      "acceptance": [
+        "companies.json 不再出现“等N家公司”条目",
+        "公司详情 URL 为英文 slug（如 /companies/bytedance/）",
+        "npm run test 与 npm run build 通过"
+      ],
       "commit": ""
     }
   ]
